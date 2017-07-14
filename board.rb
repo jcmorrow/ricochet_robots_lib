@@ -2,7 +2,7 @@ require "space"
 require "board_printer"
 
 class Board
-  DEFAULT_SIZE = 10
+  DEFAULT_SIZE = 16
   MOVEMENT_CHANGE_SETS = {
     down: [0, -1].freeze,
     left: [-1, 0].freeze,
@@ -16,6 +16,19 @@ class Board
       Array.new(size) do |y|
         Space.new(x, y, occupant: nil)
       end
+    end
+
+    generate_walls
+  end
+
+  def generate_walls
+    x = (0..15).to_a.shuffle
+    y = (0..15).to_a.shuffle
+
+    coords = x.zip(y)
+
+    coords.each do |wall|
+      spaces[wall[0]][wall[1]].occupant = Wall.new
     end
   end
 
