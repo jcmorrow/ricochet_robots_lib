@@ -1,4 +1,5 @@
 require "space"
+require "board_printer"
 
 class Board
   DEFAULT_SIZE = 10
@@ -8,9 +9,6 @@ class Board
     right: [1, 0].freeze,
     up: [0, 1].freeze,
   }.freeze
-  NEWLINE = "\n".freeze
-  PIPE = "|".freeze
-  TOP_BORDER = " _".freeze
 
   def initialize(size = DEFAULT_SIZE)
     @size = size
@@ -32,13 +30,7 @@ class Board
   end
 
   def print
-    [
-      TOP_BORDER * size,
-      spaces.map do |row|
-        [NEWLINE, row.map { |space| [PIPE, space.to_s].join }, PIPE].join
-      end,
-      NEWLINE,
-    ].join
+    BoardPrinter.print(spaces)
   end
 
   private
